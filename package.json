@@ -1,0 +1,17 @@
+{
+  "name": "hue-lights",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lights.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "node-hue-api": "^2.4.2",
+    "request": "^2.81.0",
+    "squeezenode-lordpengwin": "git+https://github.com/lordpengwin/squeezenode.git"
+  }
+}
