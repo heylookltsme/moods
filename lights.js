@@ -38,7 +38,11 @@ function findSceneByName(sceneName) {
                 });
             })
             .done((scene) => {
-                resolve(scene);
+                if (!_.isEmpty(scene)) {
+                    resolve(scene);
+                } else {
+                    reject(`Couldn't find ${sceneName}`);
+                }
             });
     });
 }
@@ -56,5 +60,5 @@ function setScene(sceneName) {
 }
 
 module.exports = {
-    setScene: setScene,
-}
+    setScene,
+};

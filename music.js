@@ -11,7 +11,7 @@ class Squeezebox {
      * Creates a new server instance and finds and assigns the appropriate player.
      */
     constructor(playerName = 'squeezeboxtastic') { // todo: add to config; make it easier to customize on instantiation
-        this.server = new SqueezeServer('http://' + config.musicHost, config.musicPort);  // todo: config file
+        this.server = new SqueezeServer(`http://${config.musicHost}`, config.musicPort);  // todo: config file
         this.server.on('register', () => {
             this.setPlayer(playerName);
         });
@@ -48,10 +48,14 @@ class Squeezebox {
         // todo: error handling if player isn't found
         return new Promise((resolve, reject) => {
             this.server.getPlayers((response) => {
-                let player = _.find(response.result, (player) => {
-                    return player.name === playerName;
+                const player = _.find(response.result, (p) => {
+                    return p.name === playerName;
                 });
-                resolve(this.server.players[player.playerid]);
+                if (_.get(player, 'playerid')) {
+                    resolve(this.server.players[player.playerid]);
+                } else {
+                    reject('Can\'t find player.');
+                }
             });
         });
     }
@@ -60,7 +64,7 @@ class Squeezebox {
      * Sends a play command to the player.
      */
     play() {
-        this.player.play()
+        this.player.play();
     }
 
     /**
